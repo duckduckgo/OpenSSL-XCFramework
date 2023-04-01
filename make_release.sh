@@ -78,6 +78,7 @@ make_release() {
 	local repo="$1"
 	local version="$2"
 	local release_notes="$3"
+	local asset="$4"
 
 	echo "Making ${version} release ... 🚢"
 
@@ -87,7 +88,7 @@ make_release() {
 	git push origin main
 	git push origin "$version"
 
-	gh release create "$version" --notes "$release_notes" --repo "$repo"
+	gh release create "$version" --notes "$release_notes" "$asset" --repo "$repo"
 
 	cat <<- EOF
 
@@ -114,12 +115,20 @@ main() {
 		exit 0
 	fi
 
+	cat <<-EOF
+	Current local version: $last_local_release
+	Current upstream version: $last_upstream_release
+
+	Preparing $last_upstream_release release ...
+
+	EOF
+
 	download_asset "$upstream_repo" "$xcframework_zip" "$xcframework_path"
 	update_swift_package "$last_upstream_release" "$xcframework_path"
 
 	local release_notes
 	release_notes=$(fetch_last_release_notes "$upstream_repo")
-	make_release "$this_repo" "$last_upstream_release" "$release_notes"
+	make_release "$this_repo" "$last_upstream_release" "$release_notes" "$xcframework_path"
 }
 
 main "$@"
