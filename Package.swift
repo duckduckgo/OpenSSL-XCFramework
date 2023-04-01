@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "OpenSSL",
-            url: "https://github.com/duckduckgo/OpenSSL-XCFramework/releases/download/1.1.1900/OpenSSL.xcframework.zip",
-            checksum: "ca51a695393cd31d57b052244399b7c8ef64f9edf73484b7b4418e1661f83bc9"
+            url: "https://github.com/duckduckgo/OpenSSL-XCFramework/releases/download/1.1.2000/OpenSSL.xcframework.zip",
+            checksum: "f04692e30ddbc42882f601b77759c160f6613ecdc595a9ad18891f79d87d1ac6"
         )
     ]
 )
