@@ -41,6 +41,10 @@ check_if_new_release_available() {
 	if [[ -z "$local_release" ]]; then
 		echo "No local release found"
 	else
+		if [[ "$local_release" == "$upstream_release" ]]; then
+			echo "Local release is the same as upstream release"
+			exit 0
+		fi
 		if ! assert_in_ascending_order "$local_release" "$upstream_release"; then
 			echo "Local release is newer than upstream release"
 			exit 1
